@@ -17,9 +17,11 @@ jobs:
       matrix:
         include:
           - name: server
-            context: ./server
+            context: .
+            file: ./server/Dockerfile
           - name: web
-            context: ./web
+            context: .
+            file: ./web/Dockerfile
 
     steps:
       - uses: actions/checkout@v4
