@@ -35,6 +35,7 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: ${{ matrix.context }}
+          file: ${{ matrix.file }}
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ matrix.name }}:latest
