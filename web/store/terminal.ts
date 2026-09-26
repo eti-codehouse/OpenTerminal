@@ -18,7 +18,8 @@ export type WidgetType =
   | "calendar"
   | "insider"
   | "tv"
-  | "recap";
+  | "recap"
+  | "advice";
 
 export type WidgetInstance = {
   id: string;
@@ -34,6 +35,8 @@ type TerminalState = {
   widgets: WidgetInstance[];
   layout: LayoutItem[];
   watchlist: string[];
+  adviceList: string[];
+  adviceFn: string;
   commandOpen: boolean;
   setActiveSymbol: (s: string) => void;
   setCommandOpen: (open: boolean) => void;
@@ -44,6 +47,9 @@ type TerminalState = {
   setLayout: (layout: LayoutItem[]) => void;
   addToWatchlist: (s: string) => void;
   removeFromWatchlist: (s: string) => void;
+  addToAdviceList: (s: string) => void;
+  removeFromAdviceList: (s: string) => void;
+  setAdviceFn: (fn: string) => void;
   resetWorkspace: () => void;
 };
 
@@ -79,6 +85,7 @@ const SIZE_BY_TYPE: Record<WidgetType, { w: number; h: number }> = {
   insider: { w: 7, h: 9 },
   tv: { w: 6, h: 11 },
   recap: { w: 5, h: 12 },
+  advice: { w: 5, h: 8 },
 };
 
 export const useTerminal = create<TerminalState>()(
@@ -88,6 +95,8 @@ export const useTerminal = create<TerminalState>()(
       widgets: DEFAULT_WIDGETS,
       layout: DEFAULT_LAYOUT,
       watchlist: ["AAPL", "MSFT", "NVDA", "TSLA", "AMZN", "GOOGL", "META", "SPY"],
+      adviceList: ["AAPL", "MSFT", "NVDA", "SPY"],
+      adviceFn: "SMA200",
       commandOpen: false,
       setActiveSymbol: (s) => set({ activeSymbol: s.toUpperCase() }),
       setCommandOpen: (open) => set({ commandOpen: open }),
@@ -120,6 +129,12 @@ export const useTerminal = create<TerminalState>()(
           watchlist: st.watchlist.includes(s.toUpperCase()) ? st.watchlist : [...st.watchlist, s.toUpperCase()],
         })),
       removeFromWatchlist: (s) => set((st) => ({ watchlist: st.watchlist.filter((x) => x !== s) })),
+      addToAdviceList: (s) =>
+        set((st) => ({
+          adviceList: st.adviceList.includes(s.toUpperCase()) ? st.adviceList : [...st.adviceList, s.toUpperCase()],
+        })),
+      removeFromAdviceList: (s) => set((st) => ({ adviceList: st.adviceList.filter((x) => x !== s) })),
+      setAdviceFn: (fn) => set({ adviceFn: fn }),
       resetWorkspace: () => set({ widgets: DEFAULT_WIDGETS, layout: DEFAULT_LAYOUT }),
     }),
     { name: "openterminal-workspace" }
