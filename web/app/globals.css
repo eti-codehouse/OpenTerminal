@@ -151,3 +151,56 @@ button.term-btn.active {
 .react-grid-item > .react-resizable-handle::after {
   border-color: var(--amber-dim) !important;
 }
+
+/* ---- Mobile shell ---- */
+.mobile-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.mobile-topbar {
+  flex-shrink: 0;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+}
+.mobile-search {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.mobile-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--panel);
+}
+
+.mobile-tabbar {
+  flex-shrink: 0;
+  display: flex;
+  background: var(--panel-2);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-tabbar-btn {
+  flex: 1;
+  min-height: 44px;
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: transparent;
+  border: none;
+  border-top: 2px solid transparent;
+  cursor: pointer;
+}
+.mobile-tabbar-btn.active {
+  color: var(--amber);
+  border-top-color: var(--amber);
+}
